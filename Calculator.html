@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish Calculator</title>
+    <style>
+
+        .display-box {
+    font-family: 'Orbitron', sans-serif;
+    background-color: #8474d4;
+    border: solid black 0.5px;
+    color: black;
+    border-radius: 5px;
+    width: 100%;
+    height: 40px; /* Reduce the height */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 16px; /* Reduce the font size */
+    padding: 3px;
+}
+
+        #btn {
+            background-color: #fb0066;
+        }
+
+        .calculator {
+    padding: 5px; /* Reduce padding */
+    border-radius: 1em;
+    height: 260px; /* Reduce height */
+    width: 280px; /* Reduce width */
+    margin: auto;
+    background-color: #191b28;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="button"] {
+    font-family: 'Orbitron', sans-serif;
+    background-color: #64278f;
+    color: white;
+    border: solid black 0.5px;
+    width: 90px; /* Increase button width */
+    height: 90px; /* Increase button height */
+    font-size: 50px; /* Increase font size of buttons */
+    border-radius: 130px; /* Increase button border radius for a rounded look */
+    outline: none;
+    cursor: pointer;
+}
+
+
+        input[type="button"]:active {
+            background: #e5e5e5;
+            -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+            -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+            box-shadow: inset 0px 0px 5px #c1c1c1;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display-box">
+            <input type="text" id="result" value="0" readonly>
+        </div>
+        <table>
+            <tr>
+                <td><button onclick="appendToResult('7')">7</button></td>
+                <td><button onclick="appendToResult('8')">8</button></td>
+                <td><button onclick="appendToResult('9')">9</button></td>
+                <td><button onclick="appendOperator('+')">+</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="appendToResult('4')">4</button></td>
+                <td><button onclick="appendToResult('5')">5</button></td>
+                <td><button onclick="appendToResult('6')">6</button></td>
+                <td><button onclick="appendOperator('-')">-</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="appendToResult('1')">1</button></td>
+                <td><button onclick="appendToResult('2')">2</button></td>
+                <td><button onclick="appendToResult('3')">3</button></td>
+                <td><button onclick="appendOperator('*')">*</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="clearResult()">C</button></td>
+                <td><button onclick="appendToResult('0')">0</button></td>
+                <td><button onclick="calculateResult()">=</button></td>
+                <td><button onclick="appendOperator('/')">/</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+         let resultField = document.getElementById('result');
+        let currentInput = '';
+
+        function appendToResult(value) {
+            if (currentInput === '0') {
+                currentInput = value;
+            } else {
+                currentInput += value;
+            }
+            resultField.value = currentInput;
+        }
+
+        function appendOperator(operator) {
+            if (currentInput !== '') {
+                currentInput += operator;
+                resultField.value = currentInput;
+            }
+        }
+
+        function clearResult() {
+            currentInput = '';
+            resultField.value = '0';
+        }
+
+        function calculateResult() {
+            try {
+                currentInput = eval(currentInput);
+                resultField.value = currentInput;
+            } catch (error) {
+                resultField.value = 'Error';
+                currentInput = '';
+            }
+        }
+    </script>
+</body>
+</html>
